@@ -1,0 +1,42 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Python
+*.pyc
+*.pyo
+*.pyd
+__pycache__/
+
+# Virtual environment
+venv/
+env/
+
+# IDEs and editors
+.vscode/
+.idea/
+
+# Logs and databases
+*.log
+*.db
+*.sqlite
+
+# Compiled source
+*.com
+*.class
+*.dll
+*.exe
+*.o
+*.so
+
+# Temporary files
+*.swp
+*~
+*.bak
+
+# Flask specific
+instance/
+web/__pycache__
+web/__pycache__/
