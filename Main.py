@@ -51,7 +51,6 @@ def send_event():
             }
         }
 
-        # Convert the event dictionary to JSON
         event_json = json.dumps(event)
 
         # Produce the event to the Kafka topic
@@ -61,7 +60,6 @@ def send_event():
         return jsonify({'status': 'success', 'message': 'Event sent to Kafka'}), 200
 
     except Exception as e:
-        # Return an error response
         return jsonify({'status': 'error', 'message': str(e)}), 500
 
 
