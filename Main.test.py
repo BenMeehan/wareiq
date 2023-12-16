@@ -14,10 +14,10 @@ class FlaskAppTest(unittest.TestCase):
     def test_send_event_valid_email(self):
         # Valid JSON payload with a valid email address
         valid_payload = {
-            'user_email': 'test@example.com',
-            'event': 'test_event',
+            'user_email': 'thespacetimepub@gmail.com',
+            'event': 'test',
             'user_name': 'Test User',
-            'event_date': '2023-01-01'
+            'event_date': '2023-12-16'
         }
 
         response = self.app.post('/events/send', json=valid_payload)
@@ -31,9 +31,9 @@ class FlaskAppTest(unittest.TestCase):
         # Invalid JSON payload with an invalid email address
         invalid_payload = {
             'user_email': 'invalid_email',
-            'event': 'test_event',
+            'event': 'test',
             'user_name': 'Test User',
-            'event_date': '2023-01-01'
+            'event_date': '2023-12-16'
         }
 
         response = self.app.post('/events/send', json=invalid_payload)
