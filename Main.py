@@ -2,7 +2,7 @@ from flask import Flask, request, jsonify
 from confluent_kafka import Producer
 from flask_cors import CORS
 import json
-import re  # Import the regular expression module
+import re 
 
 app = Flask(__name__)
 CORS(app)
@@ -22,7 +22,6 @@ producer_conf = {
     'sasl.password': cloudkafka_password,
 }
 
-# Create Kafka producer instance
 producer = Producer(producer_conf)
 
 # Regular expression for email validation
@@ -57,9 +56,8 @@ def send_event():
 
         # Produce the event to the Kafka topic
         producer.produce(kafka_topic, key=event.get('user').get('email'), value=event_json)
-        producer.flush()  # Ensure the message is sent
+        producer.flush() 
 
-        # Return a success response
         return jsonify({'status': 'success', 'message': 'Event sent to Kafka'}), 200
 
     except Exception as e:
@@ -67,6 +65,5 @@ def send_event():
         return jsonify({'status': 'error', 'message': str(e)}), 500
 
 
-# Running the Flask app
 if __name__ == '__main__':
     app.run(debug=True)

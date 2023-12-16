@@ -53,6 +53,7 @@ producer = Producer(producer_conf)
 def consume_and_send_email():
     try:
         while True:
+            # Poll for messages from kafka events topic
             msg = consumer.poll(1.0)
 
             if msg is None:
@@ -78,9 +79,9 @@ def consume_and_send_email():
 
             # Commit the offset only if the email was sent successfully
             consumer.commit()
+
     except Exception as e:
         print(f"Error occurred: {e}")
-        # traceback.print_exc()
     finally:
         consumer.close()
 
@@ -100,11 +101,14 @@ def send_email_with_retry(kafka_message, max_retries=5):
         except Exception as e:
             retries += 1
             print(f"Error sending email (Attempt {retries}/{max_retries}): {e}")
-            # traceback.print_exc()
+
     else:
         # If all retries fail, log and move the message to the DLQ
         print(f"All retry attempts failed for message: {event}")
         move_to_dlq(kafka_message)
+
+
+
 
 def send_email(user_email, user_name, date, event):
     with app.app_context():
@@ -119,7 +123,8 @@ def send_email(user_email, user_name, date, event):
 
         except Exception as e:
             print(f"Error sending email: {e}")
-            # traceback.print_exc()
+
+
 
 def move_to_dlq(message):
     try:
@@ -130,7 +135,8 @@ def move_to_dlq(message):
         print(f"Message moved to DLQ: {message.value()}")
     except Exception as e:
         print(f"Error moving message to DLQ: {e}")
-        traceback.print_exc()
+
+
 
 print("Consumer started...")
 consume_and_send_email()
